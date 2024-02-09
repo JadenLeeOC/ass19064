@@ -1,9 +1,15 @@
-const byte LEDPIN = 13;  //Declares Pins
-const byte PAWPIN1 = 1;  //Declares Pins
-const byte PAWPIN2 = 2;  //Declares Pins
-const byte PAWPIN3 = 3;  //Declares Pins
-const byte PAWPIN4 = 4;  //Declares Pins
+#include <Servo.h>
 
+const byte LEDPIN = 13;       //Declares Pins
+const byte PAWPIN1 = 1;       //Declares Pins
+const byte PAWPIN2 = 2;       //Declares Pins
+const byte PAWPIN3 = 3;       //Declares Pins
+const byte PAWPIN4 = 4;       //Declares Pins
+const byte LEFTEARPIN = 9;    //Declares Pins
+const byte RIGHTEARPIN = 10;  //Declares Pins
+
+Servo leftEar;
+Servo rightEar;
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);  //Sets the LED to OUTPUT
@@ -11,6 +17,9 @@ void setup() {
   pinMode(PAWPIN2, INPUT);  //Sets pin to INPUT
   pinMode(PAWPIN3, INPUT);  //Sets pin to INPUT
   pinMode(PAWPIN4, INPUT);  //Sets pin to INPUT
+
+  leftEar.attach(LEFTEARPIN);
+  rightEar.attach(RIGHTEARPIN);
 }
 
 void loop() {
@@ -32,10 +41,27 @@ void loop() {
   }
 }
 
-int playGame(){
+int playGame() {
   byte score = 99;
   return score;
 }
 
+void wagEars() {
+  leftEar.write(0);
+  rightEar.write(0);
+  leftEar.write(90);
+  rightEar.write(90);
+  leftEar.write(0);
+  rightEar.write(0);
+}
 
+void blinkingLed() {
+  byte randNumber = random(1, 3);
+  for (int i = 0; i < randNumber; i++) {
 
+    digitalWrite(LEDPIN, HIGH);
+    delay(500);
+    digitalWrite(LEDPIN, LOW);
+    delay(500);
+  }
+}
