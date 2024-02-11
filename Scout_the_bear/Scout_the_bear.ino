@@ -49,12 +49,12 @@ int playGame() {
 }
 
 void wagEars() {
-  leftEar.write(0);
-  rightEar.write(0);
-  leftEar.write(90);
-  rightEar.write(90);
-  leftEar.write(0);
-  rightEar.write(0);
+  leftEar.write(0);    // Moves servo (Left Ear) to the 0 position
+  rightEar.write(0);   // Moves servo (Right Ear) to the 0 position
+  leftEar.write(90);   // Moves servo (Left Ear) to the 90 position
+  rightEar.write(90);  // Moves servo (Right Ear) to the 90 position
+  leftEar.write(0);    // Moves servo (Right Ear) to the 0 position
+  rightEar.write(0);   // Moves servo (Right Ear) to the 0 position
 }
 
 void blinkingLed() {
