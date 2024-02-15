@@ -20,7 +20,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (analogRead(MICPIN) >= KNOCKLEVEL) {
     digitalWrite(LEDPIN, HIGH);
-    lock.write(180);
+    lock.write(69);
     delay(5000);
     
   }
