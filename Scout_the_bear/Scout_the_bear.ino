@@ -4,7 +4,7 @@
 
 const byte LEDPIN = 13;       //Declares Pins
 const byte PAWPIN1 = 1;       //Declares Pins
-const byte PAWPIN2 = 2;       //Declares Pins
+const byte PAWPIN2 = 2;       //Declares Pins 
 const byte PAWPIN3 = 3;       //Declares Pins
 const byte PAWPIN4 = 4;       //Declares Pins
 const byte LEFTEARPIN = 9;    //Declares Pins
