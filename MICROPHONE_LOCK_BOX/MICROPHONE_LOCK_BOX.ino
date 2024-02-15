@@ -14,6 +14,8 @@ void setup() {
   pinMode(BUTTONPIN, INPUT);
 
   lock.attach(SERVOPIN);
+
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -21,8 +23,8 @@ void loop() {
   if (analogRead(MICPIN) >= KNOCKLEVEL) {
     digitalWrite(LEDPIN, HIGH);
     lock.write(69);
+    Serial.print("Heard a knock, Unlocking");
     delay(5000);
-    
   }
   if (analogRead(BUTTONPIN) == HIGH) {
     lock.write(0);
