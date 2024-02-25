@@ -1,5 +1,10 @@
+#include "Adafruit_LiquidCrystal.h"
+
 const byte POTPIN = 3;
+const byte NOISEPIN = A0;
 const byte BUTTONPIN = A1;
+
+Adafruit_LiquidCrystal screen(0);
 
 void setup() {
   // put your setup code here, to run once:
@@ -7,6 +12,15 @@ void setup() {
 
   pinMode(BUTTONPIN, INPUT);
   pinMode(POTPIN, INPUT);
+
+  randomSeed(analogRead(NOISEPIN));
+
+  Serial.begin(9600);
+
+  if (!screen.begin(16, 2)){
+    Serial.println("Couldnt start the screen? check wiring");
+    while(1);
+  }
 }
 void loop() {
   // put your main code here, to run repeatedly:
