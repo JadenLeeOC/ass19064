@@ -30,3 +30,5 @@ void loop() {
     diceType = map(diceType, 0, 1023, 1, 6);
   }
 }
+
+//HAN COMMENT just need to add the diceRoll method from part 1 of the dice roller model answer
