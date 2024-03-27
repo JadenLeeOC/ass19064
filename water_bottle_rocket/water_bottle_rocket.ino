@@ -9,24 +9,28 @@ Sd2Card card;
 SdVolume volume;
 SdFile root;
 
+const int TEMPSENSOR = 1;
+const int PRESSURESENSOR = 2;
+const int CHIPSELECT = 4;
 
 void setup() {
   // put your setup code here, to run once:
- Serial.begin(9600);
- Environment.begin();
+  Serial.begin(9600);
+  Environment.begin();
   Serial.println("LPS25HB Pressure Sensor Example 1 - Basic Readings");
   Serial.println();
 
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
+    ;  
   }
   Serial.print("\nInitializing SD card...");
-   if (!card.init(SPI_HALF_SPEED, chipSelect)) {
+  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
     Serial.println("initialization failed. Things to check:");
     Serial.println("* is a card inserted?");
     Serial.println("* is your wiring correct?");
     Serial.println("* did you change the chipSelect pin to match your shield or module?");
-    while (1);
+    while (1)
+      ;
   } else {
     Serial.println("Wiring is correct and a card is present.");
   }
@@ -51,7 +55,8 @@ void setup() {
   // Now we will try to open the 'volume'/'partition' - it should be FAT16 or FAT32
   if (!volume.init(card)) {
     Serial.println("Could not find FAT16/FAT32 partition.\nMake sure you've formatted the card");
-    while (1);
+    while (1)
+      ;
   }
 
   Serial.print("Clusters:          ");
@@ -68,9 +73,9 @@ void setup() {
   Serial.print("Volume type is:    FAT");
   Serial.println(volume.fatType(), DEC);
 
-  volumesize = volume.blocksPerCluster();    // clusters are collections of blocks
-  volumesize *= volume.clusterCount();       // we'll have a lot of clusters
-  volumesize /= 2;                           // SD card blocks are always 512 bytes (2 blocks are 1KB)
+  volumesize = volume.blocksPerCluster();  // clusters are collections of blocks
+  volumesize *= volume.clusterCount();     
+  volumesize /= 2;                         // SD card blocks are always 512 bytes (2 blocks are 1KB)
   Serial.print("Volume size (Kb):  ");
   Serial.println(volumesize);
   Serial.print("Volume size (Mb):  ");
@@ -86,32 +91,29 @@ void setup() {
   root.ls(LS_R | LS_DATE | LS_SIZE);
 }
 
-  Wire.begin();
-  pressureSensor.begin(); // Begin links an I2C port and I2C address to the sensor, sets an I2C speed, begins I2C on the main board, and then sets default settings
+Wire.begin();
+pressureSensor.begin();  // Begin links an I2C port and I2C address to the sensor, sets an I2C speed, begins I2C on the main board, and then sets default settings
 
-  if (pressureSensor.isConnected() == false) // The library supports some different error codes such as "DISCONNECTED"
-  {
-    Serial.println("LPS25HB disconnected. Reset the board to try again.");     // Alert the user that the device cannot be reached
-    Serial.println("Are you using the right Wire port and I2C address?");      // Suggest possible fixes
-    Serial.println("See Example2_I2C_Configuration for how to change these."); // Suggest possible fixes
-    Serial.println("");
-    while (1)
-      ;
-  }
-}
+if (pressureSensor.isConnected() == false)  // The library supports some different error codes such as "DISCONNECTED"
+{
+  Serial.println("LPS25HB disconnected. Reset the board to try again.");      // Alert the user that the device cannot be reached
+  Serial.println("Are you using the right Wire port and I2C address?");       // Suggest possible fixes
+  Serial.println("See Example2_I2C_Configuration for how to change these.");  // Suggest possible fixes
+  Serial.println("");
+  while (1)
+    ;
 
-void loop() {
-  // put your main code here, to run repeatedly:
-Serial.print("Temperature = ");
-  Serial.print(Environment.readTemperature()); //print temperature
+  Serial.print("Temperature = ");
+  Serial.print(Environment.readTemperature());  //print temperature
   Serial.println(" C");
   Serial.print("Humidity = ");
-  Serial.print(Environment.readHumidity()); //print humidity
+  Serial.print(Environment.readHumidity());  //print humidity
   Serial.println(" %");
-   Serial.print("Pressure in hPa: ");
-  Serial.print(pressureSensor.getPressure_hPa()); // Get the pressure reading in hPa
+  Serial.print("Pressure in hPa: ");
+  Serial.print(pressureSensor.getPressure_hPa());  // Get the pressure reading in hPa
   Serial.print(", Temperature (degC): ");
-  Serial.println(pressureSensor.getTemperature_degC()); 
+  Serial.println(pressureSensor.getTemperature_degC());
   delay(2000);
 }
-  
+}
+}
