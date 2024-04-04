@@ -12,83 +12,56 @@ const int TEMPSENSOR = 1;
 const int PRESSURESENSOR = 2;
 const int CHIPSELECT = 4;
 
-void setup() {
+void setup() 
+
+OpenLog myLog; //Create instance
+
+int ledPin = LED_BUILTIN; //Status LED connected to digital pin 13
+
+const byte OpenLogAddress = 42; //Default Qwiic OpenLog I2C address
+
+void setup()
+{
+  pinMode(ledPin, OUTPUT);
+
+  Wire.begin();
+  myLog.begin(); //Open connection to OpenLog (no pun intended)
+
+  Serial.begin(9600); //9600bps is used for debug statements
+  Serial.println("Run OpenLog Append File Test");
+  myLog.println("Run OpenLog Append File Test");
+
+  myLog.println("This is recorded to the default log file");
+  myLog.append("JadenData.txt");
+  myLog.println("This is recorded to appendMe.txt");
+  myLog.println("If this file doesn't exist it is created and");
+  myLog.println("anything sent to OpenLog will be recorded to this file");
+
+  myLog.println();
+  myLog.println(F("Note: We can use the F(\"\") in sketches to move big print statements into program memory to save RAM"));
+  myLog.append("appendMe1.txt");
+  myLog.println(F("Note: We can use the F(\"\") in sketches to move big print statements into program memory to save RAM"));
+  myLog.println(F("Note: We can use the F(\"\") in sketches to move big print statements into program memory to save RAM"));
+  myLog.syncFile();
+
+  Serial.println("Done!");
+}
+
+void loop()
+{
+  //Blink the Status LED because we're done!
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}
+
+{
   // put your setup code here, to run once:
   Serial.begin(9600);
   Environment.begin();
   Serial.println("LPS25HB Pressure Sensor Example 1 - Basic Readings");
   Serial.println();
-
-  while (!Serial) {
-    ;
-  }
-  Serial.print("\nInitializing SD card...");
-  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
-    Serial.println("initialization failed. Things to check:");
-    Serial.println("* is a card inserted?");
-    Serial.println("* is your wiring correct?");
-    Serial.println("* did you change the chipSelect pin to match your shield or module?");
-    while (1)
-      ;
-  } else {
-    Serial.println("Wiring is correct and a card is present.");
-  }
-
-  // print the type of card
-  Serial.println();
-  Serial.print("Card type:         ");
-  switch (card.type()) {
-    case SD_CARD_TYPE_SD1:
-      Serial.println("SD1");
-      break;
-    case SD_CARD_TYPE_SD2:
-      Serial.println("SD2");
-      break;
-    case SD_CARD_TYPE_SDHC:
-      Serial.println("SDHC");
-      break;
-    default:
-      Serial.println("Unknown");
-  }
-
-  // Now we will try to open the 'volume'/'partition' - it should be FAT16 or FAT32
-  if (!volume.init(card)) {
-    Serial.println("Could not find FAT16/FAT32 partition.\nMake sure you've formatted the card");
-    while (1)
-      ;
-  }
-
-  Serial.print("Clusters:          ");
-  Serial.println(volume.clusterCount());
-  Serial.print("Blocks x Cluster:  ");
-  Serial.println(volume.blocksPerCluster());
-
-  Serial.print("Total Blocks:      ");
-  Serial.println(volume.blocksPerCluster() * volume.clusterCount());
-  Serial.println();
-
-  // print the type and size of the first FAT-type volume
-  uint32_t volumesize;
-  Serial.print("Volume type is:    FAT");
-  Serial.println(volume.fatType(), DEC);
-
-  volumesize = volume.blocksPerCluster();  // clusters are collections of blocks
-  volumesize *= volume.clusterCount();
-  volumesize /= 2;  // SD card blocks are always 512 bytes (2 blocks are 1KB)
-  Serial.print("Volume size (Kb):  ");
-  Serial.println(volumesize);
-  Serial.print("Volume size (Mb):  ");
-  volumesize /= 1024;
-  Serial.println(volumesize);
-  Serial.print("Volume size (Gb):  ");
-  Serial.println((float)volumesize / 1024.0);
-
-  Serial.println("\nFiles found on the card (name, date and size in bytes): ");
-  root.openRoot(volume);
-
-  // list all files in the card with date and size
-  root.ls(LS_R | LS_DATE | LS_SIZE);
-}
 
 Wire.begin();
 pressureSensor.begin();  // Begin links an I2C port and I2C address to the sensor, sets an I2C speed, begins I2C on the main board, and then sets default settings
