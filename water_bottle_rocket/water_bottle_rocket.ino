@@ -8,7 +8,6 @@ LPS25HB pressureSensor;
 Sd2Card card;
 SdVolume volume;
 SdFile root;
-
 const int TEMPSENSOR = 1;
 const int PRESSURESENSOR = 2;
 const int CHIPSELECT = 4;
@@ -21,7 +20,7 @@ void setup() {
   Serial.println();
 
   while (!Serial) {
-    ;  
+    ;
   }
   Serial.print("\nInitializing SD card...");
   if (!card.init(SPI_HALF_SPEED, chipSelect)) {
@@ -74,8 +73,8 @@ void setup() {
   Serial.println(volume.fatType(), DEC);
 
   volumesize = volume.blocksPerCluster();  // clusters are collections of blocks
-  volumesize *= volume.clusterCount();     
-  volumesize /= 2;                         // SD card blocks are always 512 bytes (2 blocks are 1KB)
+  volumesize *= volume.clusterCount();
+  volumesize /= 2;  // SD card blocks are always 512 bytes (2 blocks are 1KB)
   Serial.print("Volume size (Kb):  ");
   Serial.println(volumesize);
   Serial.print("Volume size (Mb):  ");
@@ -113,7 +112,7 @@ if (pressureSensor.isConnected() == false)  // The library supports some differe
   Serial.print(pressureSensor.getPressure_hPa());  // Get the pressure reading in hPa
   Serial.print(", Temperature (degC): ");
   Serial.println(pressureSensor.getTemperature_degC());
-  delay(2000);
+  delay(40);
 }
 }
 }
