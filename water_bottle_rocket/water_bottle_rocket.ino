@@ -23,7 +23,6 @@ void setup() {
   Serial.println();
 
   myLog.println("This is recorded to the default log file");
-  myLog.append("JadenData.txt");
   myLog.println("This is recorded to JadenData.txt");
   myLog.println("If this file doesn't exist it is created and");
   myLog.println("anything sent to OpenLog will be recorded to this file");
