@@ -5,22 +5,11 @@
 #include <SPI.h>
 #include <SD.h>
 LPS25HB pressureSensor;
-Sd2Card card;
-SdVolume volume;
-SdFile root;
-const int TEMPSENSOR = 1;
-const int PRESSURESENSOR = 2;
-const int CHIPSELECT = 4;
- 
 
 OpenLog myLog; //Create instance
-
-int ledPin = LED_BUILTIN; //Status LED connected to digital pin 13
-
 const byte OpenLogAddress = 42; //Default Qwiic OpenLog I2C address
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
 
   Wire.begin();
   myLog.begin(); //Open connection to OpenLog (no pun intended)
@@ -29,7 +18,6 @@ void setup() {
   Serial.println("Run OpenLog Append File Test");
   myLog.println("Run OpenLog Append File Test");
 
-  // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println("LPS25HB Pressure Sensor Example 1 - Basic Readings");
   Serial.println();
