@@ -32,7 +32,7 @@ void setup() {
 
 void loop() {
   //TEACHER COMMENT add an explaination of what this is doing - I would suggest looking at how the example csv file on classroom looks to check yours looks correct
-  if (digitalRead(button) == HIGH) {
+  if (digitalRead(buttonstate) == HIGH) {
 
     JadenCSV.print("Pressure in hPa: ");                    // Adds text to show readings in a proper sentence
     JadenCSV.print(SensorPackage.getPressure_hPa());        // Gets the pressure reading in hPa
@@ -43,7 +43,7 @@ void loop() {
     Serial.print(", Temperature (degC): ");                 // Adds text to show readings in a proper sentence
     Serial.println(SensorPackage.getTemperature_degC());    // Gets the temperature reading in degrees celsius
     delay(500);                                             // adds a 5 second delay
-  } else if (digitalRead(button) == LOW) {
+  } else if (digitalRead(buttonstate) == LOW) {
 
     Serial.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings");
     JadenCSV.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings");
