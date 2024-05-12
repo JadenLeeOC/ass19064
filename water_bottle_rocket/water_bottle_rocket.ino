@@ -21,14 +21,19 @@ void setup() {
   Serial.begin(9600);  //9600bps is used for debug statements
 
   JadenCSV.append("JadenData.txt");  // adds the log to the JadenData.txt file
-  JadenCSV.syncFile();   // syncs JadenCSV
+  JadenCSV.syncFile();               // syncs JadenCSV
 
   SensorPackage.begin();    // Begin links an I2C port and I2C address to the sensor, sets an I2C speed, begins I2C on the main board, and then sets default settings
   Serial.println("Done!");  // prints a message to the serial monitor to show the user that the Pressure sensor is working properly and is connected to the I2C port
 }
+bool checkButtonState() { // Checks whether button is on or off
+  return digitalRead(button);  // returns the state of the button (on/off)
+}
 
 void loop() {
-  if (digitalRead(buttonstate) == HIGH) {
+
+  buttonstate = checkButtonState();  //Checks button state
+  if (digitalRead(buttonstate) == HIGH) { //If button is on/pressed the code will run
 
     JadenCSV.print("Pressure in hPa: ");                    // Adds text to show readings in a proper sentence
     JadenCSV.print(SensorPackage.getPressure_hPa());        // Gets the pressure reading in hPa
@@ -39,9 +44,9 @@ void loop() {
     Serial.print(", Temperature (degC): ");                 // Adds text to show readings in a proper sentenceTRDCX
     Serial.println(SensorPackage.getTemperature_degC());    // Gets the temperature reading in degrees celsius
     delay(500);                                             // adds a 5 second delay
-  } else if (digitalRead(buttonstate) == LOW) {
+  } else if (digitalRead(buttonstate) == LOW) { //If button is off/not pressed the following code will run
 
-    Serial.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings");
-    JadenCSV.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings");
+    Serial.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings"); // When button is turned off this text is displayed in serial monitor
+    JadenCSV.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings"); // When button is turned off this text is displayed in the file.
   }
 }
