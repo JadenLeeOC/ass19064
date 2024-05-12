@@ -20,18 +20,14 @@ void setup() {
 
   Serial.begin(9600);  //9600bps is used for debug statements
 
-  //TEACHER COMMENT add a comment to explain what are these line of code doing
   JadenCSV.append("JadenData.txt");  // adds the log to the JadenData.txt file
-  JadenCSV.syncFile();
-
-  //TEACHER COMMENT and what this one is doing - any checks you would do on Jadenlog and pressuresensor to check they are working well?
+  JadenCSV.syncFile();   // syncs JadenCSV
 
   SensorPackage.begin();    // Begin links an I2C port and I2C address to the sensor, sets an I2C speed, begins I2C on the main board, and then sets default settings
   Serial.println("Done!");  // prints a message to the serial monitor to show the user that the Pressure sensor is working properly and is connected to the I2C port
 }
 
 void loop() {
-  //TEACHER COMMENT add an explaination of what this is doing - I would suggest looking at how the example csv file on classroom looks to check yours looks correct
   if (digitalRead(buttonstate) == HIGH) {
 
     JadenCSV.print("Pressure in hPa: ");                    // Adds text to show readings in a proper sentence
@@ -40,7 +36,7 @@ void loop() {
     JadenCSV.println(SensorPackage.getTemperature_degC());  // Gets the temperature reading in degrees celsius
     Serial.print("Pressure in hPa: ");                      // Adds text to show readings in a proper sentence
     Serial.print(SensorPackage.getPressure_hPa());          // Gets the pressure reading in hPa
-    Serial.print(", Temperature (degC): ");                 // Adds text to show readings in a proper sentence
+    Serial.print(", Temperature (degC): ");                 // Adds text to show readings in a proper sentenceTRDCX
     Serial.println(SensorPackage.getTemperature_degC());    // Gets the temperature reading in degrees celsius
     delay(500);                                             // adds a 5 second delay
   } else if (digitalRead(buttonstate) == LOW) {
