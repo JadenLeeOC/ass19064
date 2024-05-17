@@ -16,10 +16,8 @@ void setup() {
   pinMode(4, INPUT);            //sets pin 4 to input mode 
 
   Wire.begin();
-  jadenCSV.begin();  //Starts the connection to OpenLog
-
-  Serial.begin(9600);  //9600bps is used for debug statements
-
+    Serial.begin(9600);              //9600bps is used for debug statements
+  jadenCSV.begin();                  //Starts the connection to OpenLog
   jadenCSV.append("JadenData.txt");  // adds the log to the JadenData.txt file
   jadenCSV.syncFile();               // syncs JadenCSV
 
@@ -36,11 +34,11 @@ void loop() {
   buttonState = checkButtonState();  //Checks button state
   if (digitalRead(buttonState) == HIGH) { //If button is on/pressed the code will run
 
-    jadenCSV.println("Time, Pressure, Temperature");            // Adds text to show readings in a proper sentence
-    jadenCSV.println(String(secondsPassed) + "," + String(sensorPackage.getPressure_hPa()) + "," + String(sensorPackage.getTemperature_degC()));
+    jadenCSV.println("Time, Pressure, Temperature");            // Adds a title line 
+    jadenCSV.println(String(secondsPassed) + "," + String(sensorPackage.getPressure_hPa()) + "," + String(sensorPackage.getTemperature_degC())); // Inserts the readings
 
-    Serial.println("Time, Pressure, Temperature");            // Adds text to show readings in a proper sentence
-    Serial.println(String(secondsPassed) + "," + String(sensorPackage.getPressure_hPa()) + "," + String(sensorPackage.getTemperature_degC()));
+    Serial.println("Time, Pressure, Temperature");            // Adds a title line
+    Serial.println(String(secondsPassed) + "," + String(sensorPackage.getPressure_hPa()) + "," + String(sensorPackage.getTemperature_degC())); // Inserts the readings
     
     delay(500);                                 // adds a 5 second delay
   } else if (digitalRead(buttonState) == LOW) { //If button is off/not pressed the following code will run
