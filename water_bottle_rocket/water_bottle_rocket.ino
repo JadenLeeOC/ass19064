@@ -40,7 +40,7 @@ void loop() {
     Serial.println("Time, Pressure, Temperature");            // Adds a title line
     Serial.println(String(secondsPassed) + "," + String(sensorPackage.getPressure_hPa()) + "," + String(sensorPackage.getTemperature_degC())); // Inserts the readings
     
-    delay(500);                                 // adds a 5 second delay
+    delay(100);                                 // adds a 5 second delay
   } else if (digitalRead(buttonState) == LOW) { //If button is off/not pressed the following code will run
 
     Serial.println("Sensor Package is Turned off, Turn Sensor Package On to Recieve Sensor Readings"); // When button is turned off this text is displayed in serial monitor
